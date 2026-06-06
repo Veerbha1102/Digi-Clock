@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock - Multiple Time Zones</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>World Clock</h1>
+        <div class="clocks-grid">
+            <div class="clock-card">
+                <h2>New York</h2>
+                <div class="time" id="time-ny">--:--:-- --</div>
+                <p class="timezone">EST/EDT (UTC-5/-4)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>London</h2>
+                <div class="time" id="time-london">--:--:-- --</div>
+                <p class="timezone">GMT/BST (UTC+0/+1)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Tokyo</h2>
+                <div class="time" id="time-tokyo">--:--:-- --</div>
+                <p class="timezone">JST (UTC+9)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Sydney</h2>
+                <div class="time" id="time-sydney">--:--:-- --</div>
+                <p class="timezone">AEDT/AEST (UTC+10/+11)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Dubai</h2>
+                <div class="time" id="time-dubai">--:--:-- --</div>
+                <p class="timezone">GST (UTC+4)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Singapore</h2>
+                <div class="time" id="time-singapore">--:--:-- --</div>
+                <p class="timezone">SGT (UTC+8)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Los Angeles</h2>
+                <div class="time" id="time-la">--:--:-- --</div>
+                <p class="timezone">PST/PDT (UTC-8/-7)</p>
+            </div>
+            
+            <div class="clock-card">
+                <h2>Mumbai</h2>
+                <div class="time" id="time-mumbai">--:--:-- --</div>
+                <p class="timezone">IST (UTC+5:30)</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="add-timezone-btn">+ Add Custom Time Zone</button>
+        </div>
+        
+        <div id="custom-timezones" class="custom-timezones"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
