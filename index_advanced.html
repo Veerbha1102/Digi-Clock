@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Analog Clock with Multiple Time Zones, Customizable UI/UX, Drag-and-Drop Grid, and Real-time Updates">
+    <meta name="keywords" content="analog clock, time zones, world clock, customizable clock, drag-and-drop">
+    <meta name="author" content="Veerbha">
+    <meta name="theme-color" content="#667eea">
+    <meta property="og:title" content="Advanced Analog Clock - World Time Zones">
+    <meta property="og:description" content="Beautiful analog clock with multiple time zones and 6 themes">
+    <meta property="og:type" content="website">
+    <title>Advanced Analog Clock - World Time Zones</title>
+    <link rel="stylesheet" href="style_advanced.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-brand">
+            <h1>🕐 World Clock Pro</h1>
+        </div>
+        <div class="navbar-menu">
+            <button class="menu-btn" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
+            <button class="menu-btn" id="settings-btn" title="Settings">⚙️</button>
+            <button class="menu-btn" id="help-btn" title="Help">❓</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Display Options</h2>
+            </div>
+            <div class="sidebar-content">
+                <div class="option-group">
+                    <label>Main Screen:</label>
+                    <select id="main-screen-select">
+                        <option value="analog">Analog Clock</option>
+                        <option value="digital">Digital Display</option>
+                        <option value="hybrid">Hybrid View</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>Grid Layout:</label>
+                    <div class="grid-buttons">
+                        <button class="grid-btn active" data-cols="3">3×3</button>
+                        <button class="grid-btn" data-cols="4">4×4</button>
+                        <button class="grid-btn" data-cols="6">6×6</button>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <label>UI Theme:</label>
+                    <select id="theme-select">
+                        <option value="modern">Modern</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="dark">Dark</option>
+                        <option value="glassmorphism">Glassmorphism</option>
+                        <option value="retro">Retro</option>
+                        <option value="vibrant">Vibrant</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label class="checkbox">
+                        <input type="checkbox" id="daylight-toggle">
+                        <span>Daylight Mode</span>
+                    </label>
+                </div>
+                <button class="btn-primary" id="add-timezone-btn">+ Add Time Zone</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="analog-display" class="display-section active">
+                <div class="analog-grid" id="analog-grid"></div>
+            </div>
+            <div id="digital-display" class="display-section">
+                <div class="digital-grid" id="digital-grid"></div>
+            </div>
+            <div id="hybrid-display" class="display-section">
+                <div class="hybrid-grid" id="hybrid-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal" id="timezone-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Custom Time Zone</h2>
+                <button class="close-btn" onclick="closeModal('timezone-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>City Name:</label>
+                    <input type="text" id="city-name" placeholder="e.g., Bangkok">
+                </div>
+                <div class="form-group">
+                    <label>Time Zone:</label>
+                    <input type="text" id="timezone-input" placeholder="e.g., Asia/Bangkok">
+                </div>
+                <div class="form-group">
+                    <label>Color:</label>
+                    <input type="color" id="timezone-color" value="#667eea">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('timezone-modal')">Cancel</button>
+                <button class="btn-primary" onclick="addCustomTimezone()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <script src="script_advanced.js"></script>
+</body>
+</html>
