@@ -3,69 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock - Multiple Time Zones</title>
+    <meta name="description" content="Advanced Analog Clock with 400+ Time Zones, Customizable UI/UX, Drag-and-Drop Grid">
+    <meta name="keywords" content="analog clock, time zones, world clock, timezone selector">
+    <meta name="author" content="Veerbha">
+    <meta name="theme-color" content="#667eea">
+    <meta property="og:title" content="Advanced Analog Clock - World Time Zones">
+    <meta property="og:description" content="Beautiful analog clock with 400+ time zones and 6 themes">
+    <title>Advanced Analog Clock - World Time Zones</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>World Clock</h1>
-        <div class="clocks-grid">
-            <div class="clock-card">
-                <h2>New York</h2>
-                <div class="time" id="time-ny">--:--:-- --</div>
-                <p class="timezone">EST/EDT (UTC-5/-4)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>London</h2>
-                <div class="time" id="time-london">--:--:-- --</div>
-                <p class="timezone">GMT/BST (UTC+0/+1)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Tokyo</h2>
-                <div class="time" id="time-tokyo">--:--:-- --</div>
-                <p class="timezone">JST (UTC+9)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Sydney</h2>
-                <div class="time" id="time-sydney">--:--:-- --</div>
-                <p class="timezone">AEDT/AEST (UTC+10/+11)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Dubai</h2>
-                <div class="time" id="time-dubai">--:--:-- --</div>
-                <p class="timezone">GST (UTC+4)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Singapore</h2>
-                <div class="time" id="time-singapore">--:--:-- --</div>
-                <p class="timezone">SGT (UTC+8)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Los Angeles</h2>
-                <div class="time" id="time-la">--:--:-- --</div>
-                <p class="timezone">PST/PDT (UTC-8/-7)</p>
-            </div>
-            
-            <div class="clock-card">
-                <h2>Mumbai</h2>
-                <div class="time" id="time-mumbai">--:--:-- --</div>
-                <p class="timezone">IST (UTC+5:30)</p>
-            </div>
+    <header class="navbar">
+        <div class="navbar-brand">
+            <h1>🕐 World Clock Pro</h1>
         </div>
-        
-        <div class="controls">
-            <button id="add-timezone-btn">+ Add Custom Time Zone</button>
+        <div class="navbar-menu">
+            <button class="menu-btn" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
+            <button class="menu-btn" id="settings-btn" title="Settings">⚙️</button>
+            <button class="menu-btn" id="help-btn" title="Help">❓</button>
         </div>
-        
-        <div id="custom-timezones" class="custom-timezones"></div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Display Options</h2>
+            </div>
+            <div class="sidebar-content">
+                <div class="option-group">
+                    <label>Main Screen:</label>
+                    <select id="main-screen-select">
+                        <option value="analog">Analog Clock</option>
+                        <option value="digital">Digital Display</option>
+                        <option value="hybrid">Hybrid View</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>Grid Layout:</label>
+                    <div class="grid-buttons">
+                        <button class="grid-btn active" data-cols="3">3×3</button>
+                        <button class="grid-btn" data-cols="4">4×4</button>
+                        <button class="grid-btn" data-cols="6">6×6</button>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <label>UI Theme:</label>
+                    <select id="theme-select">
+                        <option value="modern">Modern</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="dark">Dark</option>
+                        <option value="glassmorphism">Glassmorphism</option>
+                        <option value="retro">Retro</option>
+                        <option value="vibrant">Vibrant</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label class="checkbox">
+                        <input type="checkbox" id="daylight-toggle">
+                        <span>Daylight Mode</span>
+                    </label>
+                </div>
+                <button class="btn-primary" id="add-timezone-btn">+ Add Time Zone</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="analog-display" class="display-section active">
+                <div class="analog-grid" id="analog-grid"></div>
+            </div>
+            <div id="digital-display" class="display-section">
+                <div class="digital-grid" id="digital-grid"></div>
+            </div>
+            <div id="hybrid-display" class="display-section">
+                <div class="hybrid-grid" id="hybrid-grid"></div>
+            </div>
+        </main>
     </div>
 
+    <!-- Add Timezone Modal with Full List -->
+    <div class="modal" id="timezone-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Add Custom Time Zone</h2>
+                <button class="close-btn" onclick="closeModal('timezone-modal')">&times;</button>
+            </div>
+            <div class="modal-body timezone-modal-body">
+                <div class="timezone-add-section">
+                    <h3>Quick Add</h3>
+                    <div class="form-group">
+                        <label>City Name:</label>
+                        <input type="text" id="city-name" placeholder="e.g., Bangkok, New York">
+                    </div>
+                    <div class="form-group">
+                        <label>Search & Select Time Zone:</label>
+                        <input type="text" id="timezone-search" placeholder="Search (e.g., Asia, Bangkok, UTC)..." class="timezone-search">
+                    </div>
+                    <div class="form-group">
+                        <label>Popular Time Zones:</label>
+                        <select id="timezone-select-list" class="timezone-select-list">
+                            <option value="">-- Select a Time Zone --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Or Enter Manually:</label>
+                        <input type="text" id="timezone-input" placeholder="e.g., Asia/Bangkok">
+                    </div>
+                    <div class="form-group">
+                        <label>Color:</label>
+                        <div class="color-picker">
+                            <input type="color" id="timezone-color" value="#667eea">
+                            <span id="color-label">#667eea</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timezone-list-section">
+                    <h3>All Available Time Zones (400+)</h3>
+                    <div class="timezone-filter">
+                        <input type="text" id="timezone-filter" placeholder="Filter timezones...">
+                    </div>
+                    <div class="timezone-list" id="timezone-list-container"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('timezone-modal')">Cancel</button>
+                <button class="btn-primary" onclick="addCustomTimezone()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Help & Guide</h2>
+                <button class="close-btn" onclick="closeModal('help-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>✨ Features:</h3>
+                <ul>
+                    <li>📍 View time in 400+ world time zones</li>
+                    <li>🎯 Drag & drop clocks to rearrange</li>
+                    <li>🎨 Choose from 6 beautiful themes</li>
+                    <li>📺 3 display modes: Analog, Digital, Hybrid</li>
+                    <li>🎪 Custom colors for each timezone</li>
+                    <li>🌙 Dark/Light mode and Daylight mode</li>
+                    <li>💾 Save preferences automatically</li>
+                </ul>
+                <h3>📖 How to Use:</h3>
+                <ol>
+                    <li>Click "Add Time Zone" button</li>
+                    <li>Search or select from 400+ timezones</li>
+                    <li>Choose a custom color</li>
+                    <li>Click Add to create the clock</li>
+                    <li>Drag clocks to reorder them</li>
+                    <li>Switch themes anytime</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeModal('help-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay"></div>
     <script src="script.js"></script>
 </body>
 </html>
